@@ -1,0 +1,94 @@
+# One command starts everything:  docker compose up --build
+#
+#   frontend (3000)      collection-service (gRPC 9090)      municipal-service (SOAP 8083)
+#   db: collections, municipal (one database each; the init script also provisions `reports` for report-service)
+#
+# This repository holds Person B's part only: report-service and api-gateway (Person A) are not included, so the
+# frontend's /api calls are answered with 503 by nginx until they are added back.
+# Services find each other by Docker Compose DNS name (collection-service, municipal-service, ...).
+# All configuration is injected through environment variables; the values below are local-demo defaults.
+
+x-java-healthcheck: &java-healthcheck
+  interval: 10s
+  timeout: 5s
+  retries: 12
+  start_period: 40s
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-postgres}
+      REPORTS_DB_PASSWORD: ${REPORTS_DB_PASSWORD:-change-me-reports}
+      COLLECTIONS_DB_PASSWORD: ${COLLECTIONS_DB_PASSWORD:-change-me-collections}
+      MUNICIPAL_DB_PASSWORD: ${MUNICIPAL_DB_PASSWORD:-change-me-municipal}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "${POSTGRES_HOST_PORT:-5432}:5432"
+    networks: [ecotrack-net]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  municipal-service:
+    build:
+      context: .
+      dockerfile: municipal-service/Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/municipal
+      SPRING_DATASOURCE_USERNAME: municipal
+      SPRING_DATASOURCE_PASSWORD: ${MUNICIPAL_DB_PASSWORD:-change-me-municipal}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8083:8083"
+    networks: [ecotrack-net]
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8083/actuator/health"]
+      <<: *java-healthcheck
+
+  collection-service:
+    build:
+      context: .
+      dockerfile: collection-service/Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/collections
+      SPRING_DATASOURCE_USERNAME: collections
+      SPRING_DATASOURCE_PASSWORD: ${COLLECTIONS_DB_PASSWORD:-change-me-collections}
+      SIMULATION_STEP_SECONDS: ${SIMULATION_STEP_SECONDS:-10}   # PLANNED -> IN_PROGRESS -> COMPLETED every N seconds
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8082:8082"   # actuator
+      - "9090:9090"   # gRPC (grpcurl)
+    networks: [ecotrack-net]
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8082/actuator/health"]
+      <<: *java-healthcheck
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "${FRONTEND_PORT:-3000}:80"
+    networks: [ecotrack-net]
+    healthcheck:
+      # 127.0.0.1, not localhost: in nginx:alpine "localhost" resolves to ::1 first, and our nginx.conf
+      # only listens on IPv4, so the probe would fail even though nginx is serving fine.
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+networks:
+  ecotrack-net:
+    driver: bridge
+
+volumes:
+  pgdata:
