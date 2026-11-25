@@ -3,8 +3,7 @@
 #   frontend (3000)      collection-service (gRPC 9090)      municipal-service (SOAP 8083)
 #   db: collections, municipal (one database each; the init script also provisions `reports` for report-service)
 #
-# This repository holds Person B's part only: report-service and api-gateway (Person A) are not included, so the
-# frontend's /api calls are answered with 503 by nginx until they are added back.
+# frontend's /api calls are answered with 503 by nginx until they are added.
 # Services find each other by Docker Compose DNS name (collection-service, municipal-service, ...).
 # All configuration is injected through environment variables; the values below are local-demo defaults.
 
