@@ -25,11 +25,12 @@
     <grpc-spring-boot.version>3.1.0.RELEASE</grpc-spring-boot.version>
   </properties>
 
-  <modules>
+<modules>
     <module>contracts</module>
     <module>municipal-service</module>
     <module>collection-service</module>
-  </modules>
+    <module>report-service</module>
+</modules>
 
   <dependencyManagement>
     <dependencies>

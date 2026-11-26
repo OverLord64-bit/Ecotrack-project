@@ -1,0 +1,38 @@
+server:
+  port: ${SERVER_PORT:8081}
+  shutdown: graceful
+
+spring:
+  application:
+    name: report-service
+
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+  endpoint:
+    health:
+      show-details: never
+
+  info:
+    env:
+      enabled: true
+
+info:
+  application:
+    name: EcoTrack Report Service
+    description: REST service for urban waste management
+    version: 1.0.0
+
+logging:
+  level:
+    root: INFO
+    com.ecotrack.report: INFO
+
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"
