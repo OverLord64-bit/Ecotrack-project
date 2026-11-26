@@ -20,7 +20,7 @@
   <properties>
     <docker.api.version>1.44</docker.api.version>
     <java.version>17</java.version>
-    <grpc.version>1.65.0</grpc.version>
+    <grpc.version>1.85.1</grpc.version>
     <protobuf.version>3.25.5</protobuf.version>
     <grpc-spring-boot.version>3.1.0.RELEASE</grpc-spring-boot.version>
   </properties>
