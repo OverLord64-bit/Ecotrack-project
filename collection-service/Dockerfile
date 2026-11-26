@@ -14,7 +14,7 @@ RUN --mount=type=cache,target=/root/.m2 \
     mvn -B -ntp -q -pl collection-service -am package -DskipTests
 
 # ---- stage 2: runtime (JRE only, non-root) ----
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:25-jre
 # curl is used by the Compose healthchecks
 RUN apt-get update && apt-get install -y --no-install-recommends curl \
     && rm -rf /var/lib/apt/lists/* \
