@@ -10,6 +10,7 @@ COPY contracts contracts
 COPY municipal-service municipal-service
 # the parent pom lists every module, so the other poms must exist (sources are not needed)
 COPY collection-service/pom.xml collection-service/pom.xml
+COPY report-service/pom.xml report-service/pom.xml
 RUN --mount=type=cache,target=/root/.m2 \
     mvn -B -ntp -q -pl municipal-service -am package -DskipTests
 
