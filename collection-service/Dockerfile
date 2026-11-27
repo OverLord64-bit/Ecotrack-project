@@ -11,6 +11,7 @@ COPY collection-service collection-service
 # the parent pom lists every module, so the other poms must exist (sources are not needed)
 COPY municipal-service/pom.xml municipal-service/pom.xml
 COPY report-service/pom.xml report-service/pom.xml
+COPY api-gateway/pom.xml api-gateway/pom.xml
 RUN --mount=type=cache,target=/root/.m2 \
     mvn -B -ntp -q -pl collection-service -am package -DskipTests
 

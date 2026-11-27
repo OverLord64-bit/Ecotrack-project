@@ -1,0 +1,60 @@
+server:
+  port: ${SERVER_PORT:8080}
+  shutdown: graceful
+
+spring:
+  application:
+    name: api-gateway
+
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: ${GATEWAY_CONNECT_TIMEOUT_MS:3000}
+        response-timeout: ${GATEWAY_RESPONSE_TIMEOUT:30s}
+
+      routes:
+        - id: report-service
+          uri: ${REPORT_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/v1/**
+
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - ${FRONTEND_ORIGIN:http://localhost:3000}
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+            maxAge: 3600
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+info:
+  application:
+    name: EcoTrack API Gateway
+    description: Gateway routing requests to EcoTrack backend services
+    version: 1.0.0
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway: INFO
