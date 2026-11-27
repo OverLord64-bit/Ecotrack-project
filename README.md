@@ -64,7 +64,7 @@ Tick a box when the task works and is merged to `main`. Rows ticked below were v
 
 | Done | Person | Task |
 |---|---|---|
-| [ ] | both | Repo, branch protection, CODEOWNERS handles filled in, topic sheet submitted to the teacher |
+| [x] | both | Repo, branch protection, CODEOWNERS handles filled in, topic sheet submitted to the teacher |
 | [x] | B | B1 `.proto` v1 published on day 1 (unary + server streaming) |
 | [x] | B | B3 XSD written first, published on day 1 |
 | [ ] | A | A1-A2 report-service skeleton, entities, Flyway migrations |

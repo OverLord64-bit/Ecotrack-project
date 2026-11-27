@@ -1,6 +1,4 @@
-# Replace with the real GitHub handle.
-# Person B = collection-service, municipal-service, contracts (.proto, XSD, WSDL), infra, agent space of the frontend.
-/contracts/            @member-b
-/collection-service/   @member-b
-/municipal-service/    @member-b
-/docker-compose.yml    @member-b
+/contracts/            @OverLord64-bit @benaichazayneb
+/collection-service/   @OverLord64-bit @benaichazayneb
+/municipal-service/    @OverLord64-bit @benaichazayneb
+/docker-compose.yml    @OverLord64-bit @benaichazayneb
