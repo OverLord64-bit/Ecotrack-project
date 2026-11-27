@@ -6,6 +6,7 @@ import com.ecotrack.report.service.ReportService;
 import com.ecotrack.report.web.dto.CreateReportRequest;
 import com.ecotrack.report.web.dto.ReportPageResponse;
 import com.ecotrack.report.web.dto.ReportResponse;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +44,7 @@ public class ReportController {
 
     @PostMapping
     @ResponseStatus(org.springframework.http.HttpStatus.CREATED)
-    public ReportResponse create(@RequestBody CreateReportRequest request) {
+    public ReportResponse create(@Valid @RequestBody CreateReportRequest request) {
         Report report = reportService.create(request);
         return ReportResponse.fromEntity(report);
     }
