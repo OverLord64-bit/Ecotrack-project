@@ -64,31 +64,31 @@ Tick a box when the task works and is merged to `main`. Rows ticked below were v
 
 | Done | Person | Task |
 |---|---|---|
-| [x] | both | Repo, branch protection, CODEOWNERS handles filled in, topic sheet submitted to the teacher |
-| [x] | B | B1 `.proto` v1 published on day 1 (unary + server streaming) |
-| [x] | B | B3 XSD written first, published on day 1 |
 | [ ] | A | A1-A2 report-service skeleton, entities, Flyway migrations |
 | [ ] | A | A3-A4 REST API, verbs and codes, validation, single error format |
 | [ ] | A | A5 OpenAPI exported (`scripts/export-openapi.sh`) |
 | [ ] | A | A6 gateway routes, timeouts, CORS |
-| [ ] | B | B2 collection-service gRPC server, status codes, simulated status stream |
-| [ ] | B | B4 municipal-service SOAP, WSDL from the XSD, Fault, idempotency |
 | [ ] | A | A7 gRPC client with deadline on every call |
 | [ ] | A | A8 SOAP client with timeouts (JAXB from the XSD) |
 | [ ] | A | A9 circuit breaker + fallback `PENDING_PLANNING`; retry/backoff + fallback `PENDING_TRANSMISSION` |
 | [ ] | A | A10 unit, REST integration and fallback tests |
-| [ ] | B | B7 gRPC and SOAP unit and integration tests |
-| [x] | B | B5 multi-stage Dockerfiles |
-| [x] | B | B6 compose: network, volume, healthchecks, `service_healthy`, `.env.example` |
+| [ ] | A | A11 bonus: JWT on the gateway |
 | [ ] | A | FA1-FA4 citizen space: form with photo, list, detail, collection points map |
 | [ ] | A | FA5 SSE endpoint |
+| [x] | B | B1 `.proto` v1 published on day 1 (unary + server streaming) |
+| [ ] | B | B2 collection-service gRPC server, status codes, simulated status stream |
+| [x] | B | B3 XSD written first, published on day 1 |
+| [ ] | B | B4 municipal-service SOAP, WSDL from the XSD, Fault, idempotency |
+| [x] | B | B5 multi-stage Dockerfiles |
+| [x] | B | B6 compose: network, volume, healthchecks, `service_healthy`, `.env.example` |
+| [ ] | B | B7 gRPC and SOAP unit and integration tests |
 | [x] | B | FB1-FB2 agent dashboard, validation triggers planning |
 | [x] | B | FB3-FB4 live collection status (SSE), municipal record status |
 | [x] | B | FB5 frontend Dockerfile (build then nginx) in compose |
-| [ ] | both | `scripts/smoke-test.sh` and `scripts/failure-demo.sh` pass on a fresh clone |
 | [ ] | both | CI green on a pull request (B8) |
+| [x] | both | Repo, branch protection, CODEOWNERS handles filled in, topic sheet submitted to the teacher |
 | [ ] | both | Report PDF (8-12 pages), defense rehearsed, each member can explain every service |
-| [ ] | A | A11 bonus: JWT on the gateway |
+| [ ] | both | `scripts/smoke-test.sh` and `scripts/failure-demo.sh` pass on a fresh clone |
 
 ## Limits
 See `docs/PLAN.md`.
