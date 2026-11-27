@@ -69,6 +69,18 @@
             <artifactId>grpc-netty-shaded</artifactId>
         </dependency>
 
+        <!-- SOAP client -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+
+        <!-- SOAP client tests -->
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-test</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
