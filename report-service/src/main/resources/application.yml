@@ -54,3 +54,10 @@ logging:
     com.ecotrack.report: INFO
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"
+# Municipal SOAP client
+ecotrack:
+  municipal:
+    soap:
+      uri: ${MUNICIPAL_SOAP_URI:http://localhost:8083/ws}
+      connection-timeout: ${MUNICIPAL_SOAP_CONNECTION_TIMEOUT:3000}
+      read-timeout: ${MUNICIPAL_SOAP_READ_TIMEOUT:5000}
