@@ -4,6 +4,7 @@ import com.ecotrack.report.domain.CollectionPoint;
 import com.ecotrack.report.service.CollectionPointService;
 import com.ecotrack.report.web.dto.CollectionPointRequest;
 import com.ecotrack.report.web.dto.CollectionPointResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +37,7 @@ public class CollectionPointController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CollectionPointResponse create(@RequestBody CollectionPointRequest request) {
+    public CollectionPointResponse create(@Valid @RequestBody CollectionPointRequest request) {
         CollectionPoint point = collectionPointService.create(request);
         return CollectionPointResponse.fromEntity(point);
     }
@@ -44,7 +45,7 @@ public class CollectionPointController {
     @PutMapping("/{id}")
     public CollectionPointResponse update(
             @PathVariable UUID id,
-            @RequestBody CollectionPointRequest request
+            @Valid @RequestBody CollectionPointRequest request
     ) {
         CollectionPoint point = collectionPointService.update(id, request);
         return CollectionPointResponse.fromEntity(point);
