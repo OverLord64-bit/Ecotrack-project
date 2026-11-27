@@ -42,6 +42,23 @@ public class CollectionPoint {
 
     protected CollectionPoint() {
     }
+    public CollectionPoint(
+        String name,
+        String description,
+        Double latitude,
+        Double longitude,
+        String address,
+        List<WasteCategory> wasteTypes,
+        Boolean active
+) {
+    this.name = name;
+    this.description = description;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.address = address;
+    this.wasteTypes = wasteTypes != null ? wasteTypes : new ArrayList<>();
+    this.active = active != null ? active : true;
+}
 
     public UUID getId() {
         return id;

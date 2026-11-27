@@ -67,6 +67,23 @@ public class Report {
     protected Report() {
     }
 
+    public Report(
+        String reporterName,
+        String description,
+        WasteCategory wasteCategory,
+        Double latitude,
+        Double longitude,
+        String address
+    ) {
+        this.reporterName = reporterName;
+        this.description = description;
+        this.wasteCategory = wasteCategory;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.address = address;
+        this.status = ReportStatus.SUBMITTED;
+        this.transmissionAttempts = 0;
+    }
     @PrePersist
     protected void onCreate() {
         Instant now = Instant.now();
