@@ -9,16 +9,35 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 20s
 
+  # PostgreSQL connection
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:15432/reports}
+    username: ${SPRING_DATASOURCE_USERNAME:reports}
+    password: ${SPRING_DATASOURCE_PASSWORD:${REPORTS_DB_PASSWORD:change-me-reports}}
+    driver-class-name: org.postgresql.Driver
+
+  # JPA / Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  # Database migrations
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
 management:
   endpoints:
     web:
       exposure:
         include: health,info
-
   endpoint:
     health:
       show-details: never
-
   info:
     env:
       enabled: true
@@ -33,6 +52,5 @@ logging:
   level:
     root: INFO
     com.ecotrack.report: INFO
-
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"
